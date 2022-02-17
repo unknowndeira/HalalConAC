@@ -12,8 +12,7 @@ Config.KickReason = "You have been permanently banned from this server! [Relog f
 --[Server Secuirty]
 Config.GlobalBan = true -- Enable the global banlist
 Config.Bypass = { -- Bypass for the globalban system.
-    "steam:110000135f90e2b", -- Identifiers here
-    "ip:123"
+    "steam:110000112059c1a", -- Identifiers here
 }
 
 Config.AntiResourceStop = false -- Prevents Cheaters from Stopping/Starting new Resource
